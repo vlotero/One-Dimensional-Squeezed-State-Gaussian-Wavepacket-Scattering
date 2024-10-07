@@ -2,8 +2,6 @@ import math as m
 import cmath as cm
 import numpy as np
 from matplotlib import animation
-from scipy.fftpack import fft,ifft
-from ft import *
 import matplotlib.pyplot as plt
 
 #This program models the quantum tunneling of a Gaussian wavepacket encountering a step potential
@@ -193,33 +191,7 @@ for it in range(1,tottime+1): # time loop
         plt.savefig("t = {time:.2f}.jpg".format(time = t))
         plt.show()
 
-#Momentum Distribution plot
-print('The Momentum Distribution Evolution') 
-MD = Momentum(x_space=x_space, initial_wavepacket=initial_wavepacket, step_potential=step_potential, hbar=hbar, m=m, p0=-30)
-plot_fig = plt.figure()
 
-
-ymin = abs(MD.k_space_phi).min()
-ymax = 2
-xlim = (-100, 100)
-klim = (-5, 5)
-
-MD_plot = plot_fig.add_subplot(211, xlim=klim, ylim=(ymin - 0.2 * (ymax - ymin), ymax + 0.2 * (ymax - ymin)))
-k_space_phi_line, = MD_plot.plot([], [], c='r', label=r'')
-title = MD_plot.set_title("")
-MD_plot.set_xlabel('$k (momentum-space)$')
-MD_plot.set_ylabel(r'$|\Phi(k,t)|^2$')
-
-def labels():
-    k_space_phi_line.set_data([], [])
-    title.set_text("")
-    return (k_space_phi_line, title)
-
-def evolution(i):
-    MD.t_step(ht, outstep)
-    k_space_phi_line.set_data(MD.k, abs(MD.k_space_phi)*abs(MD.k_space_phi))
-    title.set_text("t = %.2f" % MD.t)
-    return (k_space_phi_line, title)
 
 animate_evolution = animation.FuncAnimation(plot_fig, evolution, init_func=labels,
                                frames=fr, interval=30, blit=True)
