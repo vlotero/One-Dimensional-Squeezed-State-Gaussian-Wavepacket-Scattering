@@ -190,10 +190,3 @@ for it in range(1,tottime+1): # time loop
 
         plt.savefig("t = {time:.2f}.jpg".format(time = t))
         plt.show()
-
-
-
-animate_evolution = animation.FuncAnimation(plot_fig, evolution, init_func=labels,
-                               frames=fr, interval=30, blit=True)
-animate_evolution.save('CASE 1 C-4.mp4', fps=15, extra_args=['-vcodec', 'libx264'])
-plt.show()
